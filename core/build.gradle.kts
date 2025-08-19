@@ -24,7 +24,7 @@ object Maven {
     const val artifactId = "libmediasoup-android"
     const val name = "libmediasoup-android"
     const val desc = "mediasoup client side library for Android"
-    const val version = "3.1-SNAPSHOT" // Update this version as needed
+    const val version = "3.1" // Update this version as needed
     const val siteUrl = "https://github.com/zujonow/libmediasoup-android"
     const val gitUrl = "https://github.com/zujonow/libmediasoup-android.git"
     const val githubRepo = "zujonow/libmediasoup-android"
