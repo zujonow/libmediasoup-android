@@ -24,7 +24,7 @@ object Maven {
     const val artifactId = "libmediasoup-android"
     const val name = "libmediasoup-android"
     const val desc = "mediasoup client side library for Android"
-    const val version = "2.0"
+    const val version = "3.1" // Update this version as needed
     const val siteUrl = "https://github.com/zujonow/libmediasoup-android"
     const val gitUrl = "https://github.com/zujonow/libmediasoup-android.git"
     const val githubRepo = "zujonow/libmediasoup-android"
@@ -38,7 +38,7 @@ version = Maven.version
 
 android {
     namespace = "live.videosdk.mediasoup"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 21
@@ -107,8 +107,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility(JavaVersion.VERSION_17)
+        targetCompatibility(JavaVersion.VERSION_17)
     }
 
     packaging {
@@ -124,7 +124,7 @@ android {
             path = projectDir.resolve("CMakeLists.txt")
         }
     }
-    ndkVersion = "26.1.10909125"
+    ndkVersion = "28.1.13356709"
 
     publishing {
         singleVariant("release") {
@@ -137,7 +137,7 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")
         javaParameters.set(true)
-        jvmTarget.set(JvmTarget.JVM_11)
+        jvmTarget.set(JvmTarget.JVM_17)
         apiVersion.set(KotlinVersion.KOTLIN_1_7)
         languageVersion.set(KotlinVersion.KOTLIN_1_7)
     }
@@ -151,6 +151,7 @@ dependencies {
     implementation(platform(libs.kotlinx.coroutines.bom))
     implementation(libs.kotlinx.coroutines.android)
 
+//    implementation(files("libs/core-debug.aar"))
     implementation(libs.libwebrtc.ktx)
 
     testImplementation(libs.kotlinx.coroutines.test)
@@ -245,9 +246,10 @@ afterEvaluate {
             }
         }
         repositories {
+//            mavenLocal()
             maven {
-                val releasesRepoUrl = URI("https://s01.oss.sonatype.org/content/repositories/releases/")
-                val snapshotsRepoUrl = URI("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                val releasesRepoUrl = URI("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+                val snapshotsRepoUrl = URI("https://central.sonatype.com/repository/maven-snapshots/")
                 url = if (Maven.version.endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
                 val ossrhUsername: String = prop.getProperty("ossrhUsername")
                 val ossrhPassword: String = prop.getProperty("ossrhPassword")
